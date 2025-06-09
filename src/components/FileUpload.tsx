@@ -151,7 +151,7 @@ export function FileUpload({ onDataLoaded }: FileUploadProps) {
   });
 
   const removeFile = (index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+    setUploadedFiles(prev => prev.filter((file, i) => i !== index));
   };
 
   return (

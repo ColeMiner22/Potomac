@@ -57,7 +57,7 @@ export async function GET() {
         }
 
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const rawData = XLSX.utils.sheet_to_json<any>(worksheet);
+        const rawData = XLSX.utils.sheet_to_json<Record<string, string | number | null>>(worksheet);
         
         if (rawData.length === 0) {
           console.warn(`Warning: ${fileName} is empty`);
@@ -97,18 +97,18 @@ export async function GET() {
             throw new Error(`Missing VANID column in ${fileName}`);
           }
 
-          const vanId = row[vanIdCol] || '';
+          const vanId = String(row[vanIdCol] || '');
           if (!vanId) return; // Skip rows without VANID
 
           const newRecord: DonorRecord = {
             vanId,
             fiscalYears: {
-              FY25: columnMap.fiscalYears.FY25 ? row[columnMap.fiscalYears.FY25] ?? null : null,
-              FY24: columnMap.fiscalYears.FY24 ? row[columnMap.fiscalYears.FY24] ?? null : null,
-              FY23: columnMap.fiscalYears.FY23 ? row[columnMap.fiscalYears.FY23] ?? null : null,
-              FY22: columnMap.fiscalYears.FY22 ? row[columnMap.fiscalYears.FY22] ?? null : null,
-              FY21: columnMap.fiscalYears.FY21 ? row[columnMap.fiscalYears.FY21] ?? null : null,
-              FY20: columnMap.fiscalYears.FY20 ? row[columnMap.fiscalYears.FY20] ?? null : null
+              FY25: columnMap.fiscalYears.FY25 ? Number(row[columnMap.fiscalYears.FY25]) || null : null,
+              FY24: columnMap.fiscalYears.FY24 ? Number(row[columnMap.fiscalYears.FY24]) || null : null,
+              FY23: columnMap.fiscalYears.FY23 ? Number(row[columnMap.fiscalYears.FY23]) || null : null,
+              FY22: columnMap.fiscalYears.FY22 ? Number(row[columnMap.fiscalYears.FY22]) || null : null,
+              FY21: columnMap.fiscalYears.FY21 ? Number(row[columnMap.fiscalYears.FY21]) || null : null,
+              FY20: columnMap.fiscalYears.FY20 ? Number(row[columnMap.fiscalYears.FY20]) || null : null
             },
             flags: {
               isMidRange: columnMap.flags.isMidRange,
