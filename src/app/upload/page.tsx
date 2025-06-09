@@ -7,10 +7,9 @@ import { DonorRecord } from '@/utils/loadExcelData';
 import { Card, Title, Text } from '@tremor/react';
 
 export default function UploadPage() {
-  const [data, setData] = useState<DonorRecord[]>([]);
-
   const handleDataLoaded = (newData: DonorRecord[]) => {
-    setData(newData);
+    // Handle the data if needed
+    console.log('Data loaded:', newData.length, 'records');
   };
 
   return (

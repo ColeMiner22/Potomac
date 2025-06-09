@@ -22,42 +22,10 @@ export interface DonorTrend {
   amounts: number[];
 }
 
-// Define possible column name variations
-const columnMappings = {
-  vanId: ['VANID'],
-  fiscalYears: {
-    FY25: ['FY25'],
-    FY24: ['FY24'],
-    FY23: ['FY23'],
-    FY22: ['FY22'],
-    FY21: ['FY21'],
-    FY20: ['FY20']
-  },
-  flags: {
-    isMidRange: ['MidRange_1 0004999_(Public)'],
-    isMajorDonorProspect: ['Major_Donor_Prospect_(Public)']
-  }
-};
-
-// Helper function to find matching column name
-function findMatchingColumn(availableColumns: string[], possibleNames: string[]): string | null {
-  const normalizedAvailable = availableColumns.map(col => col.toLowerCase().trim());
-  const normalizedPossible = possibleNames.map(name => name.toLowerCase().trim());
-  
-  for (const possible of normalizedPossible) {
-    const index = normalizedAvailable.findIndex(col => col === possible);
-    if (index !== -1) {
-      return availableColumns[index];
-    }
-  }
-  return null;
-}
-
 export async function loadExcelData(): Promise<DonorRecord[]> {
   try {
-    // Load data from each fiscal year file
     const fileNames = ['FY20.xlsx', 'FY21.xlsx', 'FY22.xlsx', 'FY23.xlsx'];
-    const allData = await loadMultipleExcelFiles(fileNames);
+    const allData = await loadMultipleExcelFiles();
     
     if (!allData || allData.length === 0) {
       throw new Error('No data found in Excel files');
