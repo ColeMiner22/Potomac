@@ -1,24 +1,146 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Donor Analytics Dashboard
+
+A modern web application for analyzing and visualizing donor giving patterns. Built with Next.js, React, and Tailwind CSS.
+
+## Features
+
+- Upload and process Excel files containing donor data
+- Interactive data visualizations using Recharts
+- Comprehensive donor analytics including:
+  - Donation trends over time
+  - Donor movement analysis
+  - Tier changes tracking
+  - New donor acquisition metrics
+- Modern UI with smooth animations
+- Responsive design for all devices
+
+## Prerequisites
+
+- Node.js 18.x or later
+- npm 9.x or later
 
 ## Getting Started
 
-First, run the development server:
-
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd potomac-project
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Place your Excel file:
+   - Copy your Excel file named `all years.xlsx` to the `public` directory
+   - The file should be located at `public/all years.xlsx`
+   - Make sure the file has the correct format (see Excel File Format section)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Start the development server:
+```bash
+npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Usage
+
+1. **Home Page**
+   - View the main dashboard with analytics
+   - Access all features through the navigation bar
+
+2. **Upload Data**
+   - Navigate to the Upload page
+   - Drag and drop or select Excel files
+   - Files are processed automatically
+   - Redirects to dashboard after successful upload
+
+3. **Donor Trends**
+   - View comprehensive analytics
+   - Interactive charts and graphs
+   - Detailed donor movement analysis
+
+4. **About**
+   - Learn about the project features
+   - View technologies used
+
+## Excel File Format
+
+The application expects an Excel file with the following columns:
+
+Required columns:
+- `VANID` (unique donor identifier)
+- `Name` (donor name)
+- `FY25` through `FY20` (fiscal year donation amounts)
+- `MRC Ever` (Most Recent Contribution amount)
+- `MRC Ever Date` (date of most recent contribution)
+- `MRC Source Code` (source of the contribution)
+
+Optional flag columns (boolean values):
+- `Major Donor`
+- `Mid-Range`
+- `Planned Giving`
+- `Anonymous`
+- `Email Only`
+- `Easement Donor`
+- `One Solicit Per Year`
+- `One Solicit Spring`
+- `Friend of PPS`
+- `Major Donor Prospect`
+
+## Development
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+
+## Technologies Used
+
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Recharts
+- Tremor
+- Excel.js
+- Heroicons
+
+## Project Structure
+
+```
+potomac-project/
+├── public/
+│   └── all years.xlsx    # Place your Excel file here
+├── src/
+│   ├── app/             # Next.js app directory
+│   ├── components/      # React components
+│   └── utils/           # Utility functions
+├── package.json
+└── README.md
+```
+
+## Troubleshooting
+
+1. If you see a "Failed to fetch Excel file" error:
+   - Make sure the Excel file is named exactly `all years.xlsx`
+   - Verify the file is in the `public` directory
+   - Check that the file has the correct format
+
+2. If you see type errors:
+   - Run `npm run type-check` to identify issues
+   - Make sure all required columns are present in your Excel file
+
+3. If the application doesn't start:
+   - Check Node.js and npm versions
+   - Try deleting `node_modules` and running `npm install` again
+
+## License
+
+MIT License
 
 ## Learn More
 
