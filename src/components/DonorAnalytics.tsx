@@ -1,8 +1,8 @@
 'use client';
 
-import { Card, Title, Text, Grid, BarChart, LineChart } from '@tremor/react';
+import { Card, Title, Text, Grid, BarChart } from '@tremor/react';
 import { motion } from 'framer-motion';
-import { DonorRecord, analyzeDonorTrends, getGivingTier } from '@/utils/loadExcelData';
+import { DonorRecord, analyzeDonorTrends } from '@/utils/loadExcelData';
 
 interface DonorAnalyticsProps {
   data: DonorRecord[];
@@ -11,7 +11,6 @@ interface DonorAnalyticsProps {
 export function DonorAnalytics({ data }: DonorAnalyticsProps) {
   const trends = analyzeDonorTrends(data);
   const years = ['FY25', 'FY24', 'FY23', 'FY22', 'FY21', 'FY20'] as const;
-  type Year = typeof years[number];
 
   // Calculate total donations by year
   const yearlyTotals = years.map(year => {
@@ -33,13 +32,10 @@ export function DonorAnalytics({ data }: DonorAnalyticsProps) {
     return trends
       .filter(trend => trend.trend === trendType)
       .slice(0, 5)
-      .map(trend => {
-        const donor = data.find(d => d.vanId === trend.vanId);
-        return {
-          vanId: trend.vanId,
-          amount: trend.amounts[trend.amounts.length - 1] || 0
-        };
-      });
+      .map(trend => ({
+        vanId: trend.vanId,
+        amount: trend.amounts[trend.amounts.length - 1] || 0
+      }));
   };
 
   return (
