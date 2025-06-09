@@ -77,7 +77,7 @@ export function FileUpload({ onDataLoaded }: FileUploadProps) {
       // Check for missing required columns
       const missingColumns = Object.entries(requiredColumns)
         .filter(([key]) => !availableColumns.includes(key))
-        .map(([_, displayName]) => displayName);
+        .map(([, displayName]) => displayName);
 
       if (missingColumns.length > 0) {
         throw new Error(`Missing required columns: ${missingColumns.join(', ')}`);
