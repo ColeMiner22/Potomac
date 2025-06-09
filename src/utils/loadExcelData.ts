@@ -24,7 +24,6 @@ export interface DonorTrend {
 
 export async function loadExcelData(): Promise<DonorRecord[]> {
   try {
-    const fileNames = ['FY20.xlsx', 'FY21.xlsx', 'FY22.xlsx', 'FY23.xlsx'];
     const allData = await loadMultipleExcelFiles();
     
     if (!allData || allData.length === 0) {
